@@ -16,7 +16,7 @@ class TodosController < ApplicationController
 
   def update
     @todo = Todo.find(params[:id])
-    if params[:completed]
+    if params[:completed] || params[:id]
       @todo.toggle(:completed).save
       redirect_to root_path, status: 303
     else 
@@ -31,6 +31,14 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     @todo.destroy
     redirect_to root_path, status: 303
+  end
+
+  def all_complete
+    @todo = Todo.where(session_user_id: session_user)
+    @todo.each do |todo|
+      todo.update_attribute(:completed, true)
+    end
+    redirect_to root_path
   end
 
   private
