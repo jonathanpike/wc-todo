@@ -16,5 +16,9 @@
       </li>
     <% end %>
   </ul>
+  <hr id="divide" />
 </div>
 
+<div>
+  <%= link_to "Mark all completed", complete_path, action: "all_complete", class: "all-complete", remote: true %>
+</div>
