@@ -1,4 +1,3 @@
 class Todo < ActiveRecord::Base
-  scope :completed, -> { where(completed: true) }
-  scope :uncompleted, -> { where(completed: false) }
+  validates :title, presence: true
 end
