@@ -1,0 +1,5 @@
+<%= form_for(:todo, remote: true, url: '/todos', html: { class: 'my-form' }) do |f| %>
+  <%= f.hidden_field(:session_user_id, value: @session_user_id) %>
+  <%= f.text_field(:title, placeholder: 'ex. Buy milk, eggs, bread', autofocus: true, class: 'todo-box') %>
+  <%= f.submit "Add New To Do", class: 'button' %>
+<% end %>

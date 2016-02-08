@@ -1,0 +1,20 @@
+<div class="text-center"> 
+  <%= render partial: 'form' %>
+</div>
+
+<div>
+  <!-- List all uncompleted todos -->
+  <ul class="todo-list">
+    <% @todos.each do |todo| %>
+      <li class="todo"><%= check_box_tag("completed", todo.id, todo.completed,
+                              data: {
+                                remote: true,
+                                url: url_for(action: 'update', id: todo.id),
+                                method: 'PUT'}) %>
+         <span class=<%= is_checked?(todo) %>><%= best_in_place todo, :title %></span>
+         <%= link_to "Delete", todo_path(todo), method: :delete, remote: true, class: "delete" %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
