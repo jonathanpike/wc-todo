@@ -41,6 +41,14 @@ class TodosController < ApplicationController
     redirect_to root_path
   end
 
+  def clear_complete
+    @todo = Todo.where("session_user_id = ? AND completed = ?", session_user.to_i, true)
+    @todo.each do |todo|
+      todo.destroy
+    end 
+    redirect_to root_path
+  end
+
   private
 
   def todo_params
