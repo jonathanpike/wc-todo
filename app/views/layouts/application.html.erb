@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>WebCanada Todo</title>
+  <title>WebCanada To Do</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div>
+    <% flash.each do |type, message| %>
+      <p class="flash text-center"><%= message %></p>
+    <% end %>
+  </div>
 
-<h1>WebCanada Todos</h1>
+  <div id="header">
+    <h1 class="text-center" id="title">WebCanada To Do</h1>
 
-<%= yield %>
+    <h2 class="text-center" id="byline">By <a href="http://jonathanpike.net/">Jonathan Pike</a> (<a href="https://github.com/jonathanpike">GitHub</a>)</h2>
+  </div>
 
+  <div class="container">
+    <%= yield %>
+  </div>
 </body>
 </html>
