@@ -2,15 +2,13 @@ class TodosController < ApplicationController
   def index
     @todos = Todo.where(session_user_id: session_user).order(created_at: :asc)
     @session_user_id = session_user
-  end 
+  end
 
   def create
     @todo = Todo.new(todo_params)
-    unless @todo.save
-      flash[:alert] = "Something went wrong. Please try again."
-    end
+    flash[:alert] = "Something went wrong. Please try again." unless @todo.save
     respond_to do |format|
-      format.js 
+      format.js
     end
   end
 
@@ -19,13 +17,13 @@ class TodosController < ApplicationController
     if params[:completed] || params[:id]
       @todo.toggle(:completed).save
       redirect_to root_path, status: 303
-    else 
+    else
       @todo.update_attributes(todo_params)
       respond_to do |format|
         format.json { respond_with_bip(@todo) }
       end
-    end    
-  end 
+    end
+  end
 
   def destroy
     @todo = Todo.find(params[:id])
@@ -43,9 +41,7 @@ class TodosController < ApplicationController
 
   def clear_complete
     @todo = Todo.where("session_user_id = ? AND completed = ?", session_user.to_i, true)
-    @todo.each do |todo|
-      todo.destroy
-    end 
+    @todo.each(&:destroy)
     redirect_to root_path
   end
 
