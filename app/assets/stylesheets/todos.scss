@@ -1,3 +1,177 @@
 // Place all the styles related to the todos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+// Base Styles
+html, body {
+  font-family: "Fakt Soft", "Proxima Nova", "Helvetica", "Lucida Grande", sans-serif;
+  font-size: 16px;
+  line-height: 1em;
+}
+
+a {
+  text-decoration: none; 
+  color: #337ab7;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:visited {
+    color: #337ab7
+  }
+}
+
+.flash {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  padding: 15px;
+  margin-bottom: -20px;
+  border: 1px solid #ebccd1;
+  border-radius: 4px;
+}
+
+// Utilities
+
+.text-center {
+  text-align: center;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+.pull-left {
+  float: left !important;
+}
+
+// Header
+
+#header {
+  padding: 25px 0px 25px 0px;
+}
+
+#title {
+  font-size: 3.75em;
+  @media screen and (max-width:632px) {
+    font-size: 2em;
+  }
+}
+
+#byline {
+  @media screen and (max-width:632px) {
+    font-size: 1em;
+  }
+}
+
+// Todo Form
+
+.button {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  border: 1px solid #999;
+  border-bottom-width: 3px;
+  color: #FFF;
+  font-size: 1em;
+  font-weight: bold;
+  padding: .5em 1em;
+  text-decoration: none;
+  text-align: center;
+  line-height: normal;
+  -webkit-appearance: none;
+  background-color: #3bb370;
+  border-color: #339860;
+  &:hover {
+    background-color:#40ca8b;
+  }
+  &:focus {
+    background-color:#40ca8b;
+    outline:none;
+  }
+  &:active {
+    background-color:#339860;
+    outline:none;
+  }
+  @media screen and (max-width:632px) {
+    width: 100%;
+  }
+}
+
+.todo-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  background-color: #FFF;
+  border: 1px solid #bfbfbf;
+  display: inline-block;
+  font-size: .8em;
+  margin-bottom: .75em;
+  padding: .5em .25em;
+  font-size: 1em;
+  margin-bottom: .75em;
+  width: 65%;
+  border-bottom-width: 3px;
+  @media screen and (max-width:632px) {
+    width: 100%;
+  }
+}
+
+// Todos 
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  @media screen and (max-width:632px) {
+    width: 300px;
+  }
+}
+
+.todo-list {
+  list-style-type: none;
+  padding: 0px;
+}
+
+.checked {
+  text-decoration: line-through;
+  color: grey;
+}
+
+#completed {
+  display: inline-block;
+  width: 1.4em;
+  height: 2em;
+  border: 1px solid rgba(0,0,0,0.25);
+  background-color: #fff;
+  border-radius: 0.3em;
+  vertical-align: middle;
+}
+
+.delete { 
+  @extend .pull-right;
+  transform: translateY(25%);
+}
+
+.todo {
+  padding: .5em 1em;
+}
+
+#divide {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
