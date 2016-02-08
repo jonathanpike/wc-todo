@@ -12,7 +12,7 @@
                                   remote: true,
                                   url: url_for(action: 'update', id: todo.id),
                                   method: 'PUT'}) %>
-           <span class=<%= is_checked?(todo) %>><%= best_in_place todo, :title %></span>
+           <span class=<%= checked?(todo) %>><%= best_in_place todo, :title %></span>
            <%= link_to "Delete", todo_path(todo), method: :delete, remote: true, class: "delete" %>
         </li>
       <% end %>
