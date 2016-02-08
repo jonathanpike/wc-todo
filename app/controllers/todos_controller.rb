@@ -1,33 +1,49 @@
 class TodosController < ApplicationController
   def index
-    @todos = Todo.all
+    @todos = Todo.where(session_user_id: session_user).order(created_at: :asc)
+    @session_user_id = session_user
   end 
-
-  def new
-    @todo = Todo.new
-  end
 
   def create
     @todo = Todo.new(todo_params)
-    if @todo.save
-      render 'index'
-    else 
-      render 'new'
-    end 
-  end 
-
-  def edit
+    unless @todo.save
+      flash[:alert] = "Something went wrong. Please try again."
+    end
+    respond_to do |format|
+      format.js 
+    end
   end
 
   def update
+    @todo = Todo.find(params[:id])
+    if params[:completed]
+      @todo.toggle(:completed).save
+      redirect_to root_path, status: 303
+    else 
+      @todo.update_attributes(todo_params)
+      respond_to do |format|
+        format.json { respond_with_bip(@todo) }
+      end
+    end    
   end 
 
   def destroy
+    @todo = Todo.find(params[:id])
+    @todo.destroy
+    redirect_to root_path, status: 303
   end
 
   private
 
   def todo_params
-    params.require(:todo).permit(:todo)
+    params.require(:todo).permit(:title, :session_user_id)
+  end
+
+  def session_user
+    @session_user ||= session[:user_id] || generate_session_user_id
+  end
+
+  def generate_session_user_id
+    session[:user_id] = SecureRandom.hex
   end
 end
