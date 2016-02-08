@@ -160,6 +160,10 @@ a {
   vertical-align: middle;
 }
 
+#new {
+  @extend #byline;
+}
+
 .delete { 
   @extend .pull-right;
   transform: translateY(25%);
