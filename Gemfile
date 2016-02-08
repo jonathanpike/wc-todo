@@ -29,6 +29,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Puma as the app server
 gem 'puma'
 
+# Best in Place for In Place Editing
+gem 'best_in_place'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
