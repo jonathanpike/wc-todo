@@ -2,23 +2,28 @@
   <%= render partial: 'form' %>
 </div>
 
-<div>
+<div>  
+  <% if @todos.length > 0 %>
   <!-- List all uncompleted todos -->
-  <ul class="todo-list">
-    <% @todos.each do |todo| %>
-      <li class="todo"><%= check_box_tag("completed", todo.id, todo.completed,
-                              data: {
-                                remote: true,
-                                url: url_for(action: 'update', id: todo.id),
-                                method: 'PUT'}) %>
-         <span class=<%= is_checked?(todo) %>><%= best_in_place todo, :title %></span>
-         <%= link_to "Delete", todo_path(todo), method: :delete, remote: true, class: "delete" %>
-      </li>
-    <% end %>
-  </ul>
+    <ul class="todo-list">
+      <% @todos.each do |todo| %>
+        <li class="todo"><%= check_box_tag("completed", todo.id, todo.completed,
+                                data: {
+                                  remote: true,
+                                  url: url_for(action: 'update', id: todo.id),
+                                  method: 'PUT'}) %>
+           <span class=<%= is_checked?(todo) %>><%= best_in_place todo, :title %></span>
+           <%= link_to "Delete", todo_path(todo), method: :delete, remote: true, class: "delete" %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <h2>Nothing here yet.  Add a To Do?</h2>
+  <% end %>
   <hr id="divide" />
 </div>
 
 <div>
-  <%= link_to "Mark all completed", complete_path, action: "all_complete", class: "all-complete", remote: true %>
+  <%= link_to "Mark all completed", complete_path, action: "all_complete", class: "all-complete pull-left", remote: true %>
+  <%= link_to "Clear completed", clear_path, action: "clear_complete", class: "clear pull-right", remote: true %>
 </div>
