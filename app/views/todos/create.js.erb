@@ -1,3 +1,5 @@
+$('.todos').html("<%= j render partial: 'todos' %>")
+
 <% flash.each do |type, message| %>
-  $("#flash_messages").html("<%= message.html_safe %>")
+  $("#flash-messages").append("<%= j content_tag :p, message.html_safe, class: "flash text-center" %>").delay(3000).fadeOut("slow");
 <% end %>

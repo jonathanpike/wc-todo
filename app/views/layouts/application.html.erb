@@ -8,11 +8,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div>
-    <% flash.each do |type, message| %>
-      <p class="flash text-center"><%= message %></p>
-    <% end %>
-  </div>
+  <div id="flash-messages"></div>
 
   <div id="header">
     <h1 class="text-center" id="title">WebCanada To Do</h1>

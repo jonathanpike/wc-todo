@@ -1,4 +1,7 @@
 class TodosController < ApplicationController
+  respond_to :js, :html, :json
+  before_action :find_all
+  
   def index
     @todos = Todo.where(session_user_id: session_user).order(created_at: :asc)
     @session_user_id = session_user
@@ -7,16 +10,14 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.new(todo_params)
     flash[:alert] = "Something went wrong. Please try again." unless @todo.save
-    respond_to do |format|
-      format.js
-    end
+    respond_with @todo
   end
 
   def update
     @todo = Todo.find(params[:id])
     if params[:completed] || params[:id]
       @todo.toggle(:completed).save
-      redirect_to root_path, status: 303
+      respond_with @todo
     else
       @todo.update_attributes(todo_params)
       respond_to do |format|
@@ -28,7 +29,7 @@ class TodosController < ApplicationController
   def destroy
     @todo = Todo.find(params[:id])
     @todo.destroy
-    redirect_to root_path, status: 303
+    respond_with @todo
   end
 
   def all_complete
@@ -36,13 +37,13 @@ class TodosController < ApplicationController
     @todo.each do |todo|
       todo.update_attribute(:completed, true)
     end
-    redirect_to root_path
+    respond_with @todo
   end
 
   def clear_complete
     @todo = Todo.where("session_user_id = ? AND completed = ?", session_user.to_i, true)
     @todo.each(&:destroy)
-    redirect_to root_path
+    respond_with @todo
   end
 
   private
@@ -57,5 +58,9 @@ class TodosController < ApplicationController
 
   def generate_session_user_id
     session[:user_id] = SecureRandom.hex
+  end
+  
+  def find_all
+    @todos = Todo.where(session_user_id: session_user).order(created_at: :asc)
   end
 end
